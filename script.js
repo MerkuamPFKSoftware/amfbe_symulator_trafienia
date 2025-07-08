@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function obsluzKrytyczne10() {
   let bonus = 0;
   let opis = "";
-  let runda = 1;
+  let nr_krytyku = 1;
   let rzut = 10;
 
   while (rzut === 10) {
@@ -23,14 +23,32 @@ function obsluzKrytyczne10() {
 
     if (wynik <= 0) {
       bonus += 1;
-      opis += `🔁 Runda ${runda}: 10 → ${kolejny} – 5 = ${wynik} → +1\n`;
+      opis += `🔁 Krytyk nr. ${nr_krytyku}: 10 → ${kolejny} – 5 = ${wynik} → +1\n`;
       break;
     } else {
       bonus += wynik;
-      opis += `🔁 Runda ${runda}: 10 → ${kolejny} – 5 = ${wynik} → +${wynik}\n`;
+      opis += `🔁 Krytyk nr. ${nr_krytyku}: 10 → ${kolejny} – 5 = ${wynik} → +${wynik}\n`;
       rzut = kolejny;
-      runda++;
+      nr_krytyku++;
     }
+  }
+
+  return { bonus, opis };
+}
+
+function obsluzKrytyczne1() {
+  let bonus = 0;
+  let opis = "";
+
+  const rzutDodatkowy = Math.floor(Math.random() * 10) + 1;
+  const wynik = rzutDodatkowy - 5;
+  
+  if (wynik < 0) {
+    bonus += wynik; // Dodajemy wartość ujemną → rzut spada
+	opis = `💀 Krytyczna porażka: ${rzutDodatkowy} – 5 = ${wynik} → zmniejszono rzut o ${Math.abs(wynik)}`;
+  } else {
+    bonus += -1;
+    opis = `💀 Krytyczna porażka: ${rzutDodatkowy} – 5 = ${wynik} → dodano –1 do wyniku`;
   }
 
   return { bonus, opis };
@@ -68,16 +86,9 @@ function losujRzut() {
 
   // Obsługa porażki krytycznej 1
   else if (rzut === 1) {
-    const rzutDodatkowy = Math.floor(Math.random() * 10) + 1;
-    const wynik = rzutDodatkowy - 5;
-
-    if (wynik < 0) {
-      rzut += wynik; // Dodajemy wartość ujemną → rzut spada
-      infoKrytyk = `💀 Krytyczna porażka: ${rzutDodatkowy} – 5 = ${wynik} → zmniejszono rzut o ${Math.abs(wynik)}`;
-    } else {
-      rzut += -1;
-      infoKrytyk = `💀 Krytyczna porażka: ${rzutDodatkowy} – 5 = ${wynik} → dodano –1 do wyniku`;
-    }
+    const kryt = obsluzKrytyczne1();
+    bonusKrytyczny = kryt.bonus;
+    infoKrytyk = kryt.opis.trim();
   }
 
   let losowaLokalizacja = "";

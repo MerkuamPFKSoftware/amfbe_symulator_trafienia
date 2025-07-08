@@ -35,7 +35,7 @@
       padding: 6px 10px;
       margin-bottom: 12px;
       width: 100%;
-      max-width: 300px;
+      max-width: 200px;
     }
 
     button {
@@ -74,8 +74,9 @@
   <input type="number" id="atak" value="1" min="1" />
 
   <p>Czy celujesz?</p>
-  <label><input type="radio" name="celowanie" value="nie" checked> Nie</label>
-  <label><input type="radio" name="celowanie" value="tak"> Tak</label>
+  <label>Nie<input type="radio" name="celowanie" value="nie" checked></label>
+  <label>Tak<input type="radio" name="celowanie" value="tak"></label>
+  </br></br>
 
   <div id="lokalizacja-div" style="display: none;">
     <p>Wybierz lokalizację celu:</p>
@@ -86,12 +87,15 @@
       <option value="tors">🛡️ Tors (-2)</option>
     </select>
   </div>
+  </br>
 
   <label for="mod_cechy">📊 Modyfikator z cech i atrybutów:</label>
   <input type="number" id="mod_cechy" value="0" />
-
+  </br>
+  
   <label for="mod_mg">🎭 Modyfikator od Mistrza Gry:</label>
   <input type="number" id="mod_mg" value="0" />
+  </br>
 
   <button onclick="losujRzut()">🎯 Losuj rzut (1–10)</button>
   <p id="wynik"></p>
